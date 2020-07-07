@@ -24,14 +24,13 @@ class Node:
         next = property(getNext, setNext)
 
 
-# Implement Stack
+# Implementing Stack class
 class Stack:
         def __init__(self):
                 self.head = None
                 self.tail = None
 
     # Stack Operations
-
         # inserts x on top of stack 
         def push(self, data):
                 pdata = Node()
@@ -53,26 +52,34 @@ class Stack:
         # returns and removes item at top of stack
         def pop(self): 
                 if (self.tail == None):
-                        raise ValueError('There is no element to delete')
+                        print('There is no element to delete')
                         return None   
+                # if tail exist
                 value = self.tail.node   
+                if(self.tail == self.head):
+                        self.tail = None
+                        self.head = None
+                        return value
                 self.tail = self.tail.prev 
+                if(self.tail is None):
+                        return value
                 self.tail.next = None
                 return value
 
         # returns but does not remove item at top of stack
         def peek(self):
             if self.tail is None:
-                print('There is no element in the list')
+                print('There is no element in the Stack')
                 return None
             else:
                 return self.tail.node
 
         # returns true if stack has no items
         def isEmpty(self):
-                while (self.tail):
-                        return False
-                return True
+                if(self.head is None and self.tail is None):
+                    return True
+                else:
+                    return False
 
         # returns the number of items in the stack
         def getLength(self):
@@ -101,19 +108,80 @@ class Stack:
                         print('Node {} : data={}, prev={}, next={}'.format(str(count), str(rover.node), prev_out, next_out))
                         count += 1
                         rover = rover.prev
+                if count == 0:
+                    print('<Empty Stack>')
 
 def main():
-    # provided test code
-        count = 10
-        list = Stack()
-        for x in range( count ):
-                rnumber = random.randint(1,100)
-                list.push( rnumber )
-        print()
-        list.Output()
+# our test code
+        print('=============== Stack Implementation ===============')
+        print('Operation: Creating Stack')
+        stk = Stack()
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: push({})'.format(str(0)))
+        print('Operation: push({})'.format(str(1)))
+        print('Operation: push({})'.format(str(2)))
+        print('Operation: push({})'.format(str(3)))
+        stk.push(0)
+        stk.push(1)
+        stk.push(2)
+        stk.push(3)
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: getLength()')
+        x = stk.getLength()
+        print('Length of current Stack: {}'.format(str(x)))
+        print('=================================================================')
+        print('Operation: pop()')
+        stk.pop()
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: peek()')
+        x = stk.peek()
+        print('Item at the top of stack: {}'.format(str(x)))
+        print('=================================================================')
+        print('Operation: isEmpty()')
+        val = stk.isEmpty()
+        if val:
+            print('Stack is empty')
+        else:
+            print('Stack is not empty')
+        print('')
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: pop()')
+        stk.pop()
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: pop()')
+        stk.pop()
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: pop()')
+        stk.pop()
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Operation: isEmpty()')
+        val = stk.isEmpty()
+        if val:
+            print('Stack is empty')
+        else:
+            print('Stack is not empty')
+        print('')
+        print('Current Stack:')
+        stk.Output()
+        print('=================================================================')
+        print('Program Finished')
         
 
-    # our test code
+
         '''
         stk = Stack()
         stk.push(0)

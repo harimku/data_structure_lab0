@@ -64,7 +64,7 @@ class DList:
                 if find is None:
                         return None
                 if not isinstance(find, int):
-                        raise ValueError('Find argument must be int')
+                        print('Find argument must be int')
 
                 pdata = Node()
                 pdata.node = data
@@ -97,7 +97,7 @@ class DList:
                 if find is None:
                         return None
                 if not isinstance(find, int):
-                        raise ValueError('Find argument must be int')
+                        print('Find argument must be int')
 
                 pdata = Node()
                 pdata.node = data
@@ -133,28 +133,35 @@ class DList:
                         runner = runner.prev
                 if runner is None:
                         print('There is no such element in the list')
-
+                        return None
                 if (runner):
-                        return runner.node
-                else: return None
+                        return runner
+                else: 
+                    return None
                 
         # deletes a node from the list
         def Delete(self,data):
                 if (self.tail == None):
-                        raise ValueError('There is no element to delete')
-                        return None      
+                        print('There is no element to delete')
+                        return None
                 if (self.tail.node == data):
-                        self.tail = self.tail.prev 
+                        if(self.tail == self.head):
+                            self.tail = None
+                            self.head = None
+                            return None
+                        self.tail = self.tail.prev
+                        if(self.tail is None):
+                            return None
                         self.tail.next = None
                         return None
-
                 runner = self.tail
                 while(runner):
                         if runner.prev is not None and runner.prev.node is not None and runner.prev.node == data:
                                 break 
                         runner = runner.prev
                 if runner is None:
-                        raise ValueError('The list does not contain the given element')
+                        print('There is no such element in the list.')
+                        return None
                 if (runner.prev == self.head):
                         self.head = runner
                         self.head.prev = None
@@ -173,10 +180,10 @@ class DList:
 
         # returns true if list is empty
         def IsEmpty(self):
-                temp = self.head
-                while (temp):
-                        return False
-                return True
+                if(self.head is None and self.tail is None):
+                    return True
+                else:
+                    return False
 
         # prints list from tail of list
         def Output(self):
@@ -193,22 +200,113 @@ class DList:
                         else:
                                 prev_out = str(rover.prev.node)
                         
-                        print('Node {} : data={}, prev={}, next={}'.format(str(count), str(rover.node), prev_out, next_out))
+                        print('Node {} : data={}, prev_data={}, next_data={}'.format(str(count), str(rover.node), prev_out, next_out))
                         count += 1
                         rover = rover.prev
+                
+                if count == 0:
+                    print('<Empty List>')
 
  
-def main():
-    # provided test code
-        count = 10
-        list = DList()
-        for x in range( count ):
-                rnumber = random.randint(1,100)
-                list.Append( rnumber )
-        print()
-        list.Output()
-       
+def main():       
     # our test code
+        print('=============== Doubly Linked List Implementation ===============')
+        print('Operation: Creating List')
+        dll = DList()
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: Append({})'.format(str(1)))
+        print('Operation: Append({})'.format(str(2)))
+        print('Operation: Append({})'.format(str(3)))
+        dll.Append(1)
+        dll.Append(2)
+        dll.Append(3)
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: Prepend({})'.format(str(0)))
+        dll.Prepend(0)
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: InsertAfter({},{})'.format(str(1),str(-1841)))
+        dll.InsertAfter(1,-1841)
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: InsertBefore({},{})'.format(str(1),str(-777)))
+        dll.InsertBefore(1,-777)
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: Delete({})'.format(str(-777)))
+        dll.Delete(-777)
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: Search({})'.format(str(-777)))
+        val = dll.Search(-777)
+        if val is not None:
+            print('Node found with value {}'.format(str(val.node)))
+        else:
+            print('Node not Found')
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: Search({})'.format(str(-1841)))
+        val = dll.Search(-1841)
+        if val is not None:
+            print('Node found with value {}'.format(str(val.node)))
+        else:
+            print('Node not Found')
+        print('')
+        print('Operation: Search({})'.format(str(99999)))
+        val = dll.Search(99999)
+        if val is not None:
+            print('Node found with value {}'.format(str(val.node)))
+        else:
+            print('Node not Found')
+        print('')
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: IsEmpty()')
+        val = dll.IsEmpty()
+        if val:
+            print('List is empty')
+        else:
+            print('List is not empty')
+        print('')
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: Delete(2)')
+        print('Operation: Delete(3)')
+        print('Operation: Delete(-1841)')
+        print('Operation: Delete(1)')
+        print('Operation: Delete(0)')
+        dll.Delete(2)
+        dll.Delete(3)
+        dll.Delete(-1841)
+        dll.Delete(1)
+        dll.Delete(0)
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+        print('Operation: IsEmpty()')
+        dll.IsEmpty()
+        val = dll.IsEmpty()
+        if val:
+            print('List is empty')
+        else:
+            print('List is not empty')
+        print('')
+        print('Current List:')
+        dll.Output()
+        print('=================================================================')
+
+        print('Program Finished')
         '''
         dll = DList()
         dll.Append(1)

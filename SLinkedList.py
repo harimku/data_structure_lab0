@@ -54,7 +54,7 @@ class SList:
                 if find is None:
                         return None
                 if not isinstance(find, int):
-                        raise ValueError('Find argument must be int')
+                        print('Find argument must be int')
 
                 pdata = Node()
                 pdata.node = data
@@ -83,7 +83,7 @@ class SList:
                 if find is None:
                         return None
                 if not isinstance(find, int):
-                        raise ValueError('Find argument must be int')
+                        print('Find argument must be int')
 
                 pdata = Node()
                 pdata.node = data
@@ -111,18 +111,21 @@ class SList:
                         runner = runner.prev
                 if runner is None:
                         print('There is no such element in the list')
-
+                        return None
                 if (runner):
-                        return runner.node
-                else: return None
+                        return runner
+                else: 
+                        return None
                 
         # deletes a node from the list
         def Delete(self,data):
                 if (self.tail == None):
-                        raise ValueError('There is no element to delete')
+                        print('There is no element to delete')
                         return None      
                 if (self.tail.node == data):
                         self.tail = self.tail.prev 
+                        if(self.tail is None):
+                            return None
                         return None
 
                 runner = self.tail
@@ -131,7 +134,8 @@ class SList:
                                 break 
                         runner = runner.prev
                 if runner is None:
-                        raise ValueError('The list does not contain the given element')
+                        print('There is no such element in the list.')
+                        return None
                 else:
                         runner.prev = runner.prev.prev
 
@@ -146,10 +150,10 @@ class SList:
 
         # returns true if list is empty
         def IsEmpty(self):
-                temp = self.tail
-                while (temp):
-                        return False
-                return True
+                if(self.tail is None):
+                    return True
+                else:
+                    return False
 
         # prints list from tail of list
         def Output(self):
@@ -165,22 +169,126 @@ class SList:
                         print('Node {} : data={}, prev={}'.format(str(count), str(rover.node), prev_out))
                         count += 1
                         rover = rover.prev
+                if count == 0:
+                    print('<Empty List>')
+
+        @staticmethod
+        def recurseOutput(runner,count=0):
+                if(runner is None):
+                        return
+                else:   
+                        if(runner.prev is not None):
+                                prev = runner.prev.node
+                        else:
+                                prev = "NULL"
+                        print('Node {} : data={}, prev={}'.format(str(count), str(runner.node), prev))
+                        count += 1
+                        runner = runner.prev
+                        return SList.recurseOutput(runner,count=count)
 
 
 
 def main():
-     # provided test code
-        count = 10
-        list = SList()
-        for x in range( count ):
-                rnumber = random.randint(1,100)
-                list.Append( rnumber )
-        print()
-        list.Output()
-        
+        # our test code
+        print('=============== Singly Linked List Implementation ===============')
+        print('Operation: Creating List')
+        sll = SList()
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: Append({})'.format(str(1)))
+        print('Operation: Append({})'.format(str(2)))
+        print('Operation: Append({})'.format(str(3)))
+        sll.Append(1)
+        sll.Append(2)
+        sll.Append(3)
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: Prepend({})'.format(str(0)))
+        sll.Prepend(0)
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: InsertAfter({},{})'.format(str(1),str(-1841)))
+        sll.InsertAfter(1,-1841)
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: InsertBefore({},{})'.format(str(1),str(-777)))
+        sll.InsertBefore(1,-777)
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: Delete({})'.format(str(-777)))
+        sll.Delete(-777)
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: Search({})'.format(str(-777)))
+        val = sll.Search(-777)
+        if val is not None:
+            print('Node found with value {}'.format(str(val.node)))
+        else:
+            print('Node not Found')
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: Search({})'.format(str(-1841)))
+        val = sll.Search(-1841)
+        if val is not None:
+            print('Node found with value {}'.format(str(val.node)))
+        else:
+            print('Node not Found')
+        print('')
+        print('Operation: Search({})'.format(str(99999)))
+        val = sll.Search(99999)
+        if val is not None:
+            print('Node found with value {}'.format(str(val.node)))
+        else:
+            print('Node not Found')
+        print('')
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: IsEmpty()')
+        val = sll.IsEmpty()
+        if val:
+            print('List is empty')
+        else:
+            print('List is not empty')
+        print('')
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: Delete(2)')
+        print('Operation: Delete(3)')
+        print('Operation: Delete(-1841)')
+        print('Operation: Delete(1)')
+        print('Operation: Delete(0)')
+        sll.Delete(2)
+        sll.Delete(3)
+        sll.Delete(-1841)
+        sll.Delete(1)
+        sll.Delete(0)
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
+        print('Operation: IsEmpty()')
+        sll.IsEmpty()
+        val = sll.IsEmpty()
+        if val:
+            print('List is empty')
+        else:
+            print('List is not empty')
+        print('')
+        print('Current List:')
+        sll.Output()
+        print('=================================================================')
 
-     # our test code
-        '''
+        print('Program Finished')
+
+'''
         sll = SList()
         sll.Append(1)
         sll.Append(2)
@@ -189,6 +297,7 @@ def main():
         x = sll.InsertAfter(1, -777)
         x = sll.InsertBefore(1, -888)
         sll.Delete(-777)
+        sll.recurseOutput(sll.tail)
         
         ## sll test
         runner = sll.tail
@@ -211,7 +320,7 @@ def main():
         print('Searched value is: {} '.format(str(z)))
 
         exit()
-        '''
+'''
 
 if __name__ == '__main__':
         main()

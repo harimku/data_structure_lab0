@@ -51,29 +51,37 @@ class Queue:
                         pdata.prev = self.tail
                         self.tail = pdata
 
-        # returns and removes item at front of queue
+        # returns and removes item at the front of queue
         def pop(self): 
                 if (self.head == None):
-                        raise ValueError('There is no element to delete')
+                        print('There is no element to delete')
                         return None   
+                # if head exists
                 value = self.head.node   
-                self.head = self.head.next
+                if(self.head == self.tail):
+                        self.head = None
+                        self.tail = None
+                        return value
+                self.head = self.head.next 
+                if(self.head is None):
+                        return value
                 self.head.prev = None
                 return value
 
-        # returns but does not remove item at the front
+        # returns but does not remove item at the front of queue
         def peek(self):
             if self.head is None:
-                print('There is no element in the list')
+                print('There is no element in the queue')
                 return None
             else:
                 return self.head.node
 
-        # Returns true if queue has no items
+        # returns true if queue has no items
         def isEmpty(self):
-                while (self.tail):
-                        return False
-                return True
+                if(self.head is None and self.tail is None):
+                    return True
+                else:
+                    return False
 
         # returns the number of items in the queue
         def getLength(self):
@@ -84,7 +92,7 @@ class Queue:
                         temp = temp.prev
                 return count 
         
-        # prints stack from tail(top) of stack
+        # prints queue from tail(top) of queue
         def Output(self):
                 rover = self.tail
                 count = 0
@@ -102,19 +110,79 @@ class Queue:
                         print('Node {} : data={}, prev={}, next={}'.format(str(count), str(rover.node), prev_out, next_out))
                         count += 1
                         rover = rover.prev
-
+                if count == 0:
+                    print('<Empty Stack>')
 
 def main():
-    # provided test code
-        count = 10
-        list = Queue()
-        for x in range( count ):
-                rnumber = random.randint(1,100)
-                list.push( rnumber )
-        print()
-        list.Output()
-        
     # our test code
+        print('=============== Queue Implementation ===============')
+        print('Operation: Creating Queue')
+        que = Queue()
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: push({})'.format(str(0)))
+        print('Operation: push({})'.format(str(1)))
+        print('Operation: push({})'.format(str(2)))
+        print('Operation: push({})'.format(str(3)))
+        que.push(0)
+        que.push(1)
+        que.push(2)
+        que.push(3)
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: getLength()')
+        x = que.getLength()
+        print('Length of current Queue: {}'.format(str(x)))
+        print('=================================================================')
+        print('Operation: pop()')
+        que.pop()
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: peek()')
+        x = que.peek()
+        print('Item at the front of Queue: {}'.format(str(x)))
+        print('=================================================================')
+        print('Operation: isEmpty()')
+        val = que.isEmpty()
+        if val:
+            print('Queue is empty')
+        else:
+            print('Queue is not empty')
+        print('')
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: pop()')
+        que.pop()
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: pop()')
+        que.pop()
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: pop()')
+        que.pop()
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Operation: isEmpty()')
+        val = que.isEmpty()
+        if val:
+            print('Queue is empty')
+        else:
+            print('Queue is not empty')
+        print('')
+        print('Current Queue:')
+        que.Output()
+        print('=================================================================')
+        print('Program Finished')
+
+
         '''
         que = Queue()
         que.push(0)
