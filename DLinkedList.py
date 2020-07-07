@@ -181,25 +181,35 @@ class DList:
         # prints list from tail of list
         def Output(self):
                 rover = self.tail
+                count = 0
+
                 while (rover != None):
-                        #print(rover.node,end='\t')
+                        if rover.next is None:
+                                next_out = 'NULL'
+                        else:
+                                next_out = str(rover.next.node)
+                        if rover.prev is None:
+                                prev_out = 'NULL'
+                        else:
+                                prev_out = str(rover.prev.node)
+                        
+                        print('Node {} : data={}, prev={}, next={}'.format(str(count), str(rover.node), prev_out, next_out))
+                        count += 1
                         rover = rover.prev
-                print()
 
-
-
+ 
 def main():
-        '''
+    # provided test code
         count = 10
-        list = SList()
+        list = DList()
         for x in range( count ):
                 rnumber = random.randint(1,100)
                 list.Append( rnumber )
-                print( rnumber, end='\t' )
         print()
         list.Output()
+       
+    # our test code
         '''
-
         dll = DList()
         dll.Append(1)
         dll.Append(2)
@@ -210,6 +220,8 @@ def main():
         dll.Delete(-777)
         y = dll.Search(-777)
         z = dll.IsEmpty()
+        
+        dll.Output()
         
 
         ## dll test
@@ -251,7 +263,7 @@ def main():
                 print('Node {} : data={}, prev={}, next={}'.format(str(count), str(runner.node), prev_out, next_out))
                 count += 1
                 runner = runner.next
-
+        '''
 
 if __name__ == '__main__':
         main()

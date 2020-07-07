@@ -31,7 +31,9 @@ class Queue:
                 self.head = None
                 self.tail = None
 
-        # Queue Operations
+    # Queue Operations
+
+        # inserts x at end of the queue
         def push(self, data):
                 pdata = Node()
                 pdata.node = data
@@ -49,6 +51,7 @@ class Queue:
                         pdata.prev = self.tail
                         self.tail = pdata
 
+        # returns and removes item at front of queue
         def pop(self): 
                 if (self.head == None):
                         raise ValueError('There is no element to delete')
@@ -58,6 +61,7 @@ class Queue:
                 self.head.prev = None
                 return value
 
+        # returns but does not remove item at the front
         def peek(self):
             if self.head is None:
                 print('There is no element in the list')
@@ -65,11 +69,13 @@ class Queue:
             else:
                 return self.head.node
 
+        # Returns true if queue has no items
         def isEmpty(self):
                 while (self.tail):
                         return False
                 return True
 
+        # returns the number of items in the queue
         def getLength(self):
                 temp = self.tail
                 count = 0
@@ -78,20 +84,38 @@ class Queue:
                         temp = temp.prev
                 return count 
         
+        # prints stack from tail(top) of stack
+        def Output(self):
+                rover = self.tail
+                count = 0
+
+                while (rover != None):
+                        if rover.next is None:
+                                next_out = 'NULL'
+                        else:
+                                next_out = str(rover.next.node)
+                        if rover.prev is None:
+                                prev_out = 'NULL'
+                        else:
+                                prev_out = str(rover.prev.node)
+                        
+                        print('Node {} : data={}, prev={}, next={}'.format(str(count), str(rover.node), prev_out, next_out))
+                        count += 1
+                        rover = rover.prev
 
 
 def main():
-        '''
+    # provided test code
         count = 10
-        list = SList()
+        list = Queue()
         for x in range( count ):
                 rnumber = random.randint(1,100)
-                list.Append( rnumber )
-                print( rnumber, end='\t' )
+                list.push( rnumber )
         print()
         list.Output()
+        
+    # our test code
         '''
-
         que = Queue()
         que.push(0)
         que.push(1)
@@ -142,7 +166,7 @@ def main():
                 print('Node {} : data={}, prev={}, next={}'.format(str(count), str(runner.node), prev_out, next_out))
                 count += 1
                 runner = runner.next
-
+        '''
 
 if __name__ == '__main__':
         main()

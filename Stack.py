@@ -30,7 +30,9 @@ class Stack:
                 self.head = None
                 self.tail = None
 
-        # Stack Operations
+    # Stack Operations
+
+        # inserts x on top of stack 
         def push(self, data):
                 pdata = Node()
                 pdata.node = data
@@ -48,6 +50,7 @@ class Stack:
                         pdata.prev = self.tail
                         self.tail = pdata
 
+        # returns and removes item at top of stack
         def pop(self): 
                 if (self.tail == None):
                         raise ValueError('There is no element to delete')
@@ -57,6 +60,7 @@ class Stack:
                 self.tail.next = None
                 return value
 
+        # returns but does not remove item at top of stack
         def peek(self):
             if self.tail is None:
                 print('There is no element in the list')
@@ -64,11 +68,13 @@ class Stack:
             else:
                 return self.tail.node
 
+        # returns true if stack has no items
         def isEmpty(self):
                 while (self.tail):
                         return False
                 return True
 
+        # returns the number of items in the stack
         def getLength(self):
                 temp = self.tail
                 count = 0
@@ -77,20 +83,38 @@ class Stack:
                         temp = temp.prev
                 return count 
         
+        # prints stack from tail(top) of stack
+        def Output(self):
+                rover = self.tail
+                count = 0
 
+                while (rover != None):
+                        if rover.next is None:
+                                next_out = 'NULL'
+                        else:
+                                next_out = str(rover.next.node)
+                        if rover.prev is None:
+                                prev_out = 'NULL'
+                        else:
+                                prev_out = str(rover.prev.node)
+                        
+                        print('Node {} : data={}, prev={}, next={}'.format(str(count), str(rover.node), prev_out, next_out))
+                        count += 1
+                        rover = rover.prev
 
 def main():
-        '''
+    # provided test code
         count = 10
-        list = SList()
+        list = Stack()
         for x in range( count ):
                 rnumber = random.randint(1,100)
-                list.Append( rnumber )
-                print( rnumber, end='\t' )
+                list.push( rnumber )
         print()
         list.Output()
-        '''
+        
 
+    # our test code
+        '''
         stk = Stack()
         stk.push(0)
         stk.push(1)
@@ -101,7 +125,7 @@ def main():
         stk.peek()
         x = stk.isEmpty()
         y = stk.getLength()
-        
+
         ## stk test
         runner = stk.tail
         count = 0
@@ -141,7 +165,7 @@ def main():
                 print('Node {} : data={}, prev={}, next={}'.format(str(count), str(runner.node), prev_out, next_out))
                 count += 1
                 runner = runner.next
-
+        '''
 
 if __name__ == '__main__':
         main()

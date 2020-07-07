@@ -154,35 +154,41 @@ class SList:
         # prints list from tail of list
         def Output(self):
                 rover = self.tail
+                count = 0
+
                 while (rover != None):
-                        #print(rover.node,end='\t')
+                        if rover.prev is None:
+                                prev_out = 'NULL'
+                        else:
+                                prev_out = str(rover.prev.node)
+                        
+                        print('Node {} : data={}, prev={}'.format(str(count), str(rover.node), prev_out))
+                        count += 1
                         rover = rover.prev
-                print()
 
 
 
 def main():
-        '''
+     # provided test code
         count = 10
         list = SList()
         for x in range( count ):
                 rnumber = random.randint(1,100)
                 list.Append( rnumber )
-                print( rnumber, end='\t' )
         print()
         list.Output()
-        '''
+        
 
+     # our test code
+        '''
         sll = SList()
         sll.Append(1)
         sll.Append(2)
         sll.Append(3)
         sll.Prepend(0)
-        x = sll.InsertAfter(1, -666)
-        x = sll.InsertBefore(1, -777)
+        x = sll.InsertAfter(1, -777)
+        x = sll.InsertBefore(1, -888)
         sll.Delete(-777)
-        y = sll.Search(-777)
-        z = sll.IsEmpty()
         
         ## sll test
         runner = sll.tail
@@ -197,11 +203,15 @@ def main():
                 count += 1
                 runner = runner.prev
 
-        print('Is this list empty? {} '.format(z))
+        t = sll.IsEmpty()
+        print('Is this list empty? {} '.format(t))
+        y = sll.Search(-777)
         print('Searched value is: {} '.format(str(y)))
+        z = sll.Search(1)
+        print('Searched value is: {} '.format(str(z)))
 
         exit()
-        
+        '''
 
 if __name__ == '__main__':
         main()
